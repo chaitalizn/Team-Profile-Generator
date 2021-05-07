@@ -180,7 +180,6 @@ function addEngineer() {
         buildTeam();
     }
     )
-    
 };
 
 function addIntern() {
