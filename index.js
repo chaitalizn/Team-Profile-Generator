@@ -1,9 +1,10 @@
 const inquirer = require('inquirer');
-//const Employee = require('./Employee');
+const Employee = require('./lib/Employee.js');
 const Manager = require('./lib/Manager.js');
-//const Engineer = require('./Engineer');
-//const Intern = require('./Intern');
+const Engineer = require('./lib/Engineer.js');
+const Intern = require('./lib/Intern.js');
 
+//How to add this array of team member to HTML
 const teamMembers = [];
 
 function addManager() {
@@ -71,9 +72,10 @@ function addManager() {
         const manager = new Manager(managerInfo.name, managerInfo.id, managerInfo.email, managerInfo.officeNumber)
         teamMembers.push(manager);
         console.log(manager);
+        buildTeam();
     }
     )
-    buildTeam();
+    
 };
 
 function buildTeam() {
@@ -95,14 +97,17 @@ function buildTeam() {
             }
         }
     ])
-    .then(function(selected) {
-        switch (selected) {
-            case selected === 'Engineer':
+    .then( answer => {
+        switch(answer.next) {
+            case 'Engineer':
             addEngineer ();
-            case selected === 'Intern':
+            break;
+            case 'Intern':
             addIntern ();
-            case selected === 'Finish building my team':
+            break;
+            case 'Finish building my team':
             generateHtml ();
+            break;
         }
         }
     )
@@ -168,13 +173,14 @@ function addEngineer() {
             }
         }
     ])
-    .then(function(engieerInfo) {
-        const engineer = new Manager(engieerInfo.name, engineerInfo.id, engineerInfo.email, engineerInfo.github)
+    .then( value => {
+        const engineer = new Engineer(value.name, value.id, value.email, value.github)
         teamMembers.push(engineer);
         console.log(engineer);
+        buildTeam();
     }
     )
-    buildTeam();
+    
 };
 
 function addIntern() {
@@ -238,9 +244,10 @@ function addIntern() {
         }
     ])
     .then(function(internInfo) {
-        const intern = new Manager(internInfo.name, internInfo.id, internInfo.email, internInfo.school)
+        const intern = new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school)
         teamMembers.push(intern);
         console.log(intern);
+        buildTeam();
     }
     )
 };
