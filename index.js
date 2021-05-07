@@ -3,6 +3,9 @@ const Employee = require('./lib/Employee.js');
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
+const ManagerHtml = require('./src/manager-temp');
+const fs = require('fs');
+
 
 //How to add this array of team member to HTML
 const teamMembers = [];
@@ -106,7 +109,7 @@ function buildTeam() {
             addIntern ();
             break;
             case 'Finish building my team':
-            generateHtml ();
+            generateHtml (JSON.stringify(teamMembers));
             break;
         }
         }
@@ -250,6 +253,16 @@ function addIntern() {
     }
     )
 };
+
+function generateHtml (data) {
+    fs.writeFile('./dist/index.html', data, 'utf8', function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        console.log("Done!");
+    });
+};
+
 
 addManager();
 
