@@ -27,5 +27,5 @@ test('can get role via getRole', () => {
 test('can get officeNumber', () => {
     const testvalue = 9;
     const e = new Manager('bob', 2, 'test@test.com', testvalue);
-    expect(e.getRole()).toBe(testvalue);
+    expect(e.getOfficeNumber()).toBe(testvalue);
 }) 
