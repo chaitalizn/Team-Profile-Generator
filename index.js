@@ -3,9 +3,53 @@ const Employee = require('./lib/Employee.js');
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
-const ManagerHtml = require('./src/manager-temp');
+//const ManagerHtml = require('./src/manager-temp');
 const fs = require('fs');
+const path = require('path');
+const renderMainHtml = require('./src/render-html-template.js');
 
+const sameQuestions = [{
+    type: 'text',
+    name: 'name',
+    message: 'What is your name?',
+
+    validate: (value)=> {
+        if(value) {
+            return true;
+        } else {
+            console.log('Please enter your name')
+            return false;
+        }
+    }
+},
+{
+    type: 'integer',
+    name: 'id',
+    message: 'What is your employee ID number?',
+
+    validate: (value)=> {
+        if(value) {
+            return true;
+        } else {
+            console.log('Please enter your employee ID number')
+            return false;
+        }
+    }
+},
+{
+    type: 'test',
+    name: 'email',
+    message: 'What is your email?',
+
+    validate: (value)=> {
+        if(value) {
+            return true;
+        } else {
+            console.log('Please enter your email')
+            return false;
+        }
+    }
+}]
 
 //How to add this array of team member to HTML
 const teamMembers = [];
@@ -14,48 +58,7 @@ function addManager() {
 //prompts questions that are same for manager, engineer and intern
     inquirer
     .prompt([
-        {
-            type: 'text',
-            name: 'name',
-            message: 'What is your name?',
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log('Please enter your name')
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'integer',
-            name: 'id',
-            message: 'What is your employee ID number?',
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log('Please enter your employee ID number')
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'test',
-            name: 'email',
-            message: 'What is your email?',
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log('Please enter your email')
-                    return false;
-                }
-            }
-        },
+        ...sameQuestions,
         {
             type: 'text',
             name: 'officeNumber',
@@ -109,7 +112,7 @@ function buildTeam() {
             addIntern ();
             break;
             case 'Finish building my team':
-            generateHtml (JSON.stringify(teamMembers));
+            generateHtml(teamMembers);
             break;
         }
         }
@@ -119,48 +122,7 @@ function buildTeam() {
 function addEngineer() {
     inquirer
     .prompt([
-        {
-            type: 'text',
-            name: 'name',
-            message: 'What is the engineer name?',
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log('Please enter engineer name')
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'integer',
-            name: 'id',
-            message: "What is engineer's ID number?",
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log("Please enter engineer's ID number")
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'test',
-            name: 'email',
-            message: "What is engineer's email?",
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log("Please enter engineer's email")
-                    return false;
-                }
-            }
-        },
+        ...sameQuestions,
         {
             type: 'text',
             name: 'github',
@@ -188,48 +150,7 @@ function addEngineer() {
 function addIntern() {
     inquirer
     .prompt([
-        {
-            type: 'text',
-            name: 'name',
-            message: 'What is the intern name?',
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log("Please enter intern's name")
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'integer',
-            name: 'id',
-            message: "What is intern's ID number?",
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log("Please enter intern's ID number")
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'test',
-            name: 'email',
-            message: "What is intern's email?",
-
-            validate: (value)=> {
-                if(value) {
-                    return true;
-                } else {
-                    console.log("Please enter intern's email")
-                    return false;
-                }
-            }
-        },
+        ...sameQuestions,
         {
             type: 'text',
             name: 'school',
@@ -255,11 +176,11 @@ function addIntern() {
 };
 
 function generateHtml (data) {
-    fs.writeFile('./dist/index.html', data, 'utf8', function(err) {
+    const userInput = renderMainHtml(teamMembers);
+    fs.writeFile('./dist/index.html', userInput, 'utf8', function(err) {
         if(err) {
             return console.log(err);
         }
-        console.log("Done!");
     });
 };
 
