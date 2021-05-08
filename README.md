@@ -17,9 +17,11 @@
 
   ## Tests
   ![npm test](dist/Capture-test.PNG)
+  ![Test Demo Recording](https://github.com/chaitalizn/Team-Profile-Generator/blob/20329cb0b9eace369f80102c7db3e0dd7cacae2f/dist/Unit%20test_%20May%208,%202021%204_43%20PM.gif)  
  
   ## Demo
-  [Video link](https://drive.google.com/file/d/1b0p3_Y7_V4vNEsIHmuFHte-wjmIqyBSI/view?usp=sharing)  
+  [App Demo Video link](https://drive.google.com/file/d/1b0p3_Y7_V4vNEsIHmuFHte-wjmIqyBSI/view?usp=sharing)  
+  [Test Demo Video Link](https://drive.google.com/file/d/1b0p3_Y7_V4vNEsIHmuFHte-wjmIqyBSI/view?usp=sharing)  
   
   ------
   
